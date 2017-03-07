@@ -1,5 +1,5 @@
 /**
- * angular-timer - v1.3.5 - 2017-03-07 3:27 PM
+ * angular-timer - v1.3.5 - 2017-03-07 3:52 PM
  * https://github.com/siddii/angular-timer
  *
  * Copyright (c) 2017 Adrian Wardell
@@ -204,8 +204,8 @@ var timerModule = angular.module('timer', [])
           $scope.isRunning = false;
         });
 
-        function roundTimeUnit(unit) {
-          return unit < 0 ? Math.ceil(unit) : Math.floor(unit);
+        function roundTimeUnit(unit, allowCeil) {
+          return unit < 0 && allowCeil !== false ? Math.ceil(unit) : Math.floor(unit);
         }
 
         function calculateTimeUnits() {
@@ -219,42 +219,42 @@ var timerModule = angular.module('timer', [])
 
           // compute time values based on maxTimeUnit specification
           if (!$scope.maxTimeUnit || $scope.maxTimeUnit === 'day') {
-            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60);
+            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60, false);
             $scope.minutes = roundTimeUnit((($scope.millis / (60000)) % 60));
             $scope.hours = roundTimeUnit((($scope.millis / (3600000)) % 24));
             $scope.days = roundTimeUnit((($scope.millis / (3600000)) / 24));
             $scope.months = 0;
             $scope.years = 0;
           } else if ($scope.maxTimeUnit === 'second') {
-            $scope.seconds = roundTimeUnit($scope.millis / 1000);
+            $scope.seconds = roundTimeUnit($scope.millis / 1000, false);
             $scope.minutes = 0;
             $scope.hours = 0;
             $scope.days = 0;
             $scope.months = 0;
             $scope.years = 0;
           } else if ($scope.maxTimeUnit === 'minute') {
-            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60);
+            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60, false);
             $scope.minutes = roundTimeUnit($scope.millis / 60000);
             $scope.hours = 0;
             $scope.days = 0;
             $scope.months = 0;
             $scope.years = 0;
           } else if ($scope.maxTimeUnit === 'hour') {
-            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60);
+            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60, false);
             $scope.minutes = roundTimeUnit((($scope.millis / (60000)) % 60));
             $scope.hours = roundTimeUnit($scope.millis / 3600000);
             $scope.days = 0;
             $scope.months = 0;
             $scope.years = 0;
           } else if ($scope.maxTimeUnit === 'month') {
-            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60);
+            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60, false);
             $scope.minutes = roundTimeUnit((($scope.millis / (60000)) % 60));
             $scope.hours = roundTimeUnit((($scope.millis / (3600000)) % 24));
             $scope.days = roundTimeUnit((($scope.millis / (3600000)) / 24) % 30);
             $scope.months = roundTimeUnit((($scope.millis / (3600000)) / 24) / 30);
             $scope.years = 0;
           } else if ($scope.maxTimeUnit === 'year') {
-            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60);
+            $scope.seconds = roundTimeUnit(($scope.millis / 1000) % 60, false);
             $scope.minutes = roundTimeUnit((($scope.millis / (60000)) % 60));
             $scope.hours = roundTimeUnit((($scope.millis / (3600000)) % 24));
             $scope.days = roundTimeUnit((($scope.millis / (3600000)) / 24) % 30);
