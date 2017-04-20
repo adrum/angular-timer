@@ -90,8 +90,10 @@ var timerModule = angular.module('timer', [])
           $scope.clear();
         });
 
-        $scope.$on('timer-reset', function () {
-          $scope.reset();
+        $scope.$on('timer-reset', function (obj) {
+          if (!obj) {
+            $scope.reset();
+          }
         });
 
         $scope.$on('timer-set-countdown', function (e, countdown) {
